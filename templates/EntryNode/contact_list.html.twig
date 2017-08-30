@@ -1,0 +1,59 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Contacts{% endblock %}
+
+{% block content %}
+    <div class="e-row">
+        <div class="e-col-12">
+            <h1>Contact notification</h1>
+        </div>
+    </div>
+
+    <hr class="e-separator" />
+
+    <div class="e-row">
+        <div class="e-col-12">
+            <table data-e-version="2" class="e-table e-table-bordered">
+                <thead>
+                <tr>
+                    <th class="e-table__col e-table__col-large e-table__sort">
+                        Contact id
+                    </th>
+                    <th class="e-table__col e-table__col-small e-table__sort">
+                        Email
+                    </th>
+                    <th class="e-table__col e-table__col-actions"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for contact in contacts %}
+                    <tr>
+                        <td>
+                            {{ contact['id'] }}
+                        </td>
+                        <td>
+                            {{ contact['email'] }}
+                        </td>
+                        <td class="e-table__col e-table__col-actions">
+                            <div class="e-buttongroup float-right">
+                                <a href="{{ path('entry/trigger', {token: token, contact_id: contact.id, resource_id: 'initiated'}) }}" class="e-btn">
+                                    Initiated
+                                </a>
+                                <a href="{{ path('entry/trigger', {token: token, contact_id: contact.id, resource_id: 'picked_up'}) }}" class="e-btn">
+                                    Picked up
+                                </a>
+                                <a href="{{ path('entry/trigger', {token: token, contact_id: contact.id, resource_id: 'in_transit'}) }}" class="e-btn">
+                                    In transit
+                                </a>
+                                <a href="{{ path('entry/trigger', {token: token, contact_id: contact.id, resource_id: 'delivered'}) }}" class="e-btn">
+                                    Delivered
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

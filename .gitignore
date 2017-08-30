@@ -1,0 +1,6 @@
+.idea
+.env
+var/cache/**/*
+var/logs/**/*
+!var/**/.gitkeep
+vendor

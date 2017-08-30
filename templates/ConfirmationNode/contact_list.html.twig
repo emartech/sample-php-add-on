@@ -1,0 +1,73 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Contacts{% endblock %}
+
+{% block content %}
+    <div class="e-row">
+        <div class="e-col-12">
+            <h1>Contact confirmation</h1>
+        </div>
+    </div>
+
+    <hr class="e-separator" />
+
+    <div class="e-row">
+        <div class="e-col-12">
+            <table data-e-version="2" class="e-table e-table-bordered">
+                <thead>
+                <tr>
+                    <th class="e-table__col e-table__col-large e-table__sort">
+                        Contact id
+                    </th>
+                    <th class="e-table__col e-table__col-small e-table__sort">
+                        Program id
+                    </th>
+                    <th class="e-table__col e-table__col-small">
+                        Node id
+                    </th>
+                    <th class="e-table__col e-table__col-medium">
+                        Resource id
+                    </th>
+                    <th class="e-table__col e-table__col-xsmall e-table__sort">
+                        Date
+                    </th>
+                    <th class="e-table__col e-table__col-actions"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for contact in contacts %}
+                    <tr>
+                        <td>
+                            {{ contact.contact_id }}
+                        </td>
+                        <td>
+                            {{ contact.program_id }}
+                        </td>
+                        <td>
+                            {{ contact.node_id }}
+                        </td>
+                        <td>
+                            {{ contact.resource_id }}
+                        </td>
+                        <td class="e-table__col e-table__col-nowrap">
+                            {{ contact.time }}
+                        </td>
+                        <td class="e-table__col e-table__col-actions">
+                            <e-tooltip valign="baseline" content="Approve">
+                                <a href="{{ path('confirmation/allow_contact', {token: token, id: contact.id, trigger_id: contact.trigger_id, contact_id: contact.contact_id}) }}" class="e-svgclickfix">
+                                    <e-icon icon="e-approve" type="table"></e-icon>
+                                </a>
+                            </e-tooltip>
+                            <e-tooltip valign="baseline" content="Reject">
+                                <a href="{{ path('confirmation/deny_contact', {token: token, id: contact.id, trigger_id: contact.trigger_id}) }}" class="e-svgclickfix">
+                                    <e-icon icon="e-reject" type="table"></e-icon>
+                                </a>
+                            </e-tooltip>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

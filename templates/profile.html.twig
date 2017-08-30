@@ -1,0 +1,70 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Settings{% endblock %}
+
+{% block header %}
+    <script type="text/javascript">
+      var token = '{{ token }}';
+
+      function fetchSettings() {
+        var $id = $('#id');
+        var $name = $('#name');
+        var $environment = $('#environment');
+        var $timezone = $('#timezone');
+
+        $.ajax('profile/getData', {
+          method: 'post',
+          contentType: 'application/json',
+          data: JSON.stringify({ token: token })
+        })
+          .done(function(data) {
+            $id.text(data.data.id);
+            $name.text(data.data.name);
+            $environment.text(data.data.environment);
+            $timezone.text(data.data.timezone);
+          })
+          .fail(function(response) {
+            console.error(response);
+          });
+      }
+    </script>
+{% endblock %}
+
+{% block content %}
+    <div class="e-row">
+        <div class="e-col-12">
+            <h1>Profile</h1>
+        </div>
+    </div>
+
+    <hr class="e-separator" />
+
+    <div class="e-row">
+        <div class="e-col-12">
+            <div>
+                <button class="e-btn e-btn-primary float-right" onclick="fetchSettings()">Show profile</button>
+            </div>
+            <table data-e-version="2" class="e-table e-table-condensed e-table__col-small">
+                <tbody>
+                    <tr>
+                        <td class="e-table__col-medium">Id</td>
+                        <td id="id" class="e-table__col-medium">n/a</td>
+                    </tr>
+                    <tr>
+                        <td class="e-table__col-medium">Name</td>
+                        <td id="name" class="e-table__col-medium">n/a</td>
+                    </tr>
+                    <tr>
+                        <td class="e-table__col-medium">Environment</td>
+                        <td id="environment" class="e-table__col-medium">n/a</td>
+                    </tr>
+                    <tr>
+                        <td class="e-table__col-medium">Timezone</td>
+                        <td id="timezone" class="e-table__col-medium">n/a</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

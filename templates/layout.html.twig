@@ -1,0 +1,33 @@
+{% extends "frame.html.twig" %}
+
+{%
+    set tabs = [
+        { 'path': 'index', 'title': 'Home' },
+        { 'path': 'profile', 'title': 'Profile' },
+        { 'path': 'confirmation/contact_list', 'title': 'Confirmation' },
+        { 'path': 'entry/contact_list', 'title': 'Notification' }
+    ]
+%}
+
+{% block frame_content %}
+<div class="e-container">
+    <div class="e-row">
+        <div class="e-col-12">
+            <h1>Sample Integration</h1>
+
+            <div class="e-tabs">
+                {% for tab in tabs %}
+                    <div class="e-tabs__title {% if current_page_path == tab.path %}e-tabs__title-active{% endif %}">
+                        <a class="e-tabs__separator" href="{{ path(tab.path, {token: token}) }}">
+                            {{ tab.title }}
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="e-box">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

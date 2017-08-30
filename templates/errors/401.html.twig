@@ -1,0 +1,16 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+
+    <div class="e-row">
+        <div class="e-col-12">
+            <div class="e-alert e-alert-withicon e-alert-danger">
+              <span class="e-alert__icon">
+                <e-icon icon="warning"></e-icon>
+              </span>
+                Authentication failure. - {{ message }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

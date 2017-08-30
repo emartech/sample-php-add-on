@@ -1,0 +1,52 @@
+{% extends "frame.html.twig" %}
+
+{% block header %}
+    <link href="{{ asset('css/confirmation_options.css') }}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block frame_content %}
+    <div class="e-field">
+        <input id="confirmation_tag" type="text" placeholder="Tag..." value="{{ confirmationTag }}" class="e-input">
+    </div>
+
+    <script type="text/javascript">
+        // Listen to messages (expected from parent iframe)
+        window.addEventListener("message", receiveMessage, false);
+
+        // Function that handles messages
+        function receiveMessage(event)
+        {
+            // Parse message data using JSON parser
+            var parsedMessage = JSON.parse(event.data);
+
+            // Check message ID is 'resource.save'
+            if (parsedMessage.messageId === 'resource.save')
+            {
+                // Save values set up by the user using an AJAX request to
+                // your own service.
+                // Create a response object
+                var tag = document.getElementById('confirmation_tag').value;
+                var response = {
+                    messageId: 'resource.save',
+                    data: {
+                        id: tag,
+                        label: '[' + tag + ']'
+                    }
+                };
+
+                // Send the response object to Automation Center, by responding
+                // to the parent iframe with a new message
+                window.parent.postMessage(JSON.stringify(response), "*");
+            }
+        }
+
+        // Resize the Automation Center dialog to fit the dialog content.
+        window.parent.postMessage(JSON.stringify({
+            messageId: 'dialog.resize',
+            data: {
+                width: 600,
+                height: 40
+            }
+        }), "*");
+    </script>
+{% endblock %}

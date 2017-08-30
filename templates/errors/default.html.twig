@@ -1,0 +1,30 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+    <div class="e-row">
+        <div class="e-col-12">
+            <div class="e-alert e-alert-withicon e-alert-danger">
+              <span class="e-alert__icon">
+                <e-icon icon="warning"></e-icon>
+              </span>
+                {{ code }} - {{ message }}
+            </div>
+        </div>
+    </div>
+
+    <div class="e-row">
+        <div class="e-col-12">
+            <pre>
+{{ trace }}
+            </pre>
+        </div>
+    </div>
+
+    <hr class="e-separator">
+
+    <div class="e-row">
+        <div class="e-col-12">
+            <a href="{{ path('index', {token: token}) }}">Go to index</a>
+        </div>
+    </div>
+{% endblock %}

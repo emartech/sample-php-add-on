@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  sample-iframe-integration:
+    build: .
+    volumes:
+      - ../:/var/www/html/
+    ports:
+      - "8000:80"
+    extra_hosts:
+      - "suitedocker.ett.local:172.17.0.1"
+    environment:
+      - "DATABASE_URL=postgres://my_user:my_secret_password@sample-iframe-database:5432/my_database"
+  sample-iframe-database:
+    image: postgres
+    environment:
+      - "POSTGRES_USER=my_user"
+      - "POSTGRES_PASSWORD=my_secret_password"
+      - "POSTGRES_DB=my_database"
